@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestão de Estoque</title>
+  <link rel="stylesheet" href="estoque.css">
+</head>
+<body>
+  <header>
+    <h2>Gestão de Estoque</h2>
+    <nav>
+      <a href="../principal/principal.html">Voltar</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="movForm">
+      <select id="produto" required>
+        <option value="">Selecione um produto</option>
+      </select>
+      <select id="tipoMov" required>
+        <option value="entrada">Entrada</option>
+        <option value="saida">Saída</option>
+      </select>
+      <input type="number" id="quantidade" placeholder="Quantidade" required>
+      <button type="submit">Registrar</button>
+    </form>
+
+    <h3>Lista de Produtos</h3>
+    <table id="tabelaEstoque">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Quantidade Atual</th>
+          <th>Estoque Mínimo</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="alerta" class="alerta"></div>
+  </main>
+
+  <script src="estoque.js"></script>
+</body>
+</html>
