@@ -1,25 +1,34 @@
-const tabela = document.getElementById('tabelaHistorico').querySelector('tbody');
+const tabelaBody = document.querySelector("#tabelaHistorico tbody");
 
-// Exemplo de movimentações (em sistema real viria do banco)
-let historico = [
-  { data: "01/06/2026 10:00", produto: "Caneta", tipo: "Entrada", quantidade: 20, responsavel: "admin" },
-  { data: "01/06/2026 10:15", produto: "Caderno", tipo: "Saída", quantidade: 5, responsavel: "admin" },
-  { data: "01/06/2026 10:20", produto: "Borracha", tipo: "Entrada", quantidade: 10, responsavel: "joao" }
-];
+// Carregar histórico ao abrir a página
+async function carregarHistorico() {
+  try {
+    const response = await fetch("http://localhost:3000/api/movimentacoes");
+    const movimentacoes = await response.json();
 
-function atualizarTabela() {
-  tabela.innerHTML = "";
-  historico.forEach(m => {
-    const row = `<tr>
-      <td>${m.data}</td>
+    atualizarTabela(movimentacoes);
+  } catch (error) {
+    console.error("Erro ao carregar histórico:", error);
+  }
+}
+
+// Atualizar tabela
+function atualizarTabela(lista) {
+  tabelaBody.innerHTML = "";
+  lista.forEach(m => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${new Date(m.data_movimentacao).toLocaleDateString("pt-BR")}</td>
       <td>${m.produto}</td>
       <td>${m.tipo}</td>
       <td>${m.quantidade}</td>
-      <td>${m.responsavel}</td>
-    </tr>`;
-    tabela.innerHTML += row;
+      <td>${m.usuario}</td>
+    `;
+    tabelaBody.appendChild(row);
   });
 }
 
-// Inicializa tabela
-atualizarTabela();
+
+
+// Inicializa
+carregarHistorico();
